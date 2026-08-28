@@ -15,175 +15,209 @@
 </head>
 <body class="bg-stone-100 text-stone-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- CABEÇALHO / NAVEGAÇÃO -->
-    <header class="bg-[#1d2b56] text-white border-b-4 border-[#cc1e2b] sticky top-0 z-50 shadow-md">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+    <!-- TELA DE LOGIN (Aparece primeiro) -->
+    <div id="login-screen" class="fixed inset-0 bg-[#1d2b56] z-50 flex items-center justify-center p-6">
+        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full border-t-8 border-[#cc1e2b] text-center">
             
-            <!-- LOGO COM O SÍMBOLO LOCAL (logo.png) -->
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('historia')">
-                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center p-1 shadow-sm border border-stone-200 overflow-hidden">
-                    <img src="logo.png" alt="Símbolo Governança" class="w-full h-full object-contain">
-                </div>
+            <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-stone-200 overflow-hidden">
+                <img src="logo.png" alt="Símbolo Governança" class="w-full h-full object-contain" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><path d=\'M50 10 L90 80 L10 80 Z\' fill=\'%23cc1e2b\'/><circle cx=\'50\' cy=\'55\' r=\'18\' fill=\'%231d2b56\'/></svg>'">
+            </div>
+
+            <h2 class="text-xl font-bold text-[#1d2b56] uppercase tracking-wide mb-1">Acesso Restrito</h2>
+            <p class="text-xs text-stone-500 mb-6">Digite a senha para acessar o portal do Conselho Familiar</p>
+
+            <!-- Prevenção do envio via formulário padrão com preventDefault -->
+            <form onsubmit="validarAcesso(event)" class="space-y-4">
                 <div>
-                    <span class="text-lg font-bold tracking-wider uppercase block leading-none text-white">Governança Familiar</span>
-                    <span class="text-[10px] tracking-widest text-stone-300 uppercase">Conselho & Legado</span>
+                    <input type="password" id="senha-input" placeholder="Sua senha" class="w-full px-4 py-2 text-sm border border-stone-300 rounded focus:outline-none focus:border-[#1d2b56]">
                 </div>
-            </div>
+                <p id="erro-msg" class="text-xs text-[#cc1e2b] hidden font-semibold">Senha incorreta. Tente novamente.</p>
+                <button type="submit" class="w-full bg-[#1d2b56] hover:bg-[#cc1e2b] text-white py-2 rounded text-sm font-bold uppercase tracking-wider transition">
+                    Entrar no Portal
+                </button>
+            </form>
 
-            <!-- MENU COM AS CORES DO GRUPO -->
-            <nav class="text-sm font-medium tracking-wide flex space-x-6">
-                <button onclick="showPage('historia')" id="nav-historia" class="text-white hover:text-[#cc1e2b] transition py-1 border-b-2 border-transparent">Nossa História</button>
-                <button onclick="showPage('estrutura')" id="nav-estrutura" class="text-stone-300 hover:text-[#cc1e2b] transition py-1 border-b-2 border-transparent">Estrutura</button>
-                <button onclick="showPage('galeria')" id="nav-galeria" class="text-stone-300 hover:text-[#cc1e2b] transition py-1 border-b-2 border-transparent">Galeria de Fotos</button>
-                <button onclick="showPage('atas')" id="nav-atas" class="text-stone-300 hover:text-[#cc1e2b] transition py-1 border-b-2 border-transparent">Atas & Documentos</button>
-            </nav>
-
-            <span class="text-xs bg-[#131d3b] text-stone-200 border border-stone-600 px-3 py-1 rounded">
-                Ambiente Restrito
-            </span>
+            <p class="text-[10px] text-stone-400 mt-6">Ambiente seguro e confidencial.</p>
         </div>
-    </header>
+    </div>
 
-    <!-- BANNER TOPO NO AZUL CORPORATIVO -->
-    <section class="bg-[#1d2b56] text-white py-12 px-6 border-b border-stone-700">
-        <div class="max-w-4xl mx-auto text-center">
-            <p class="text-xs uppercase tracking-widest text-[#cc1e2b] mb-2 font-bold">Perenidade & Transparência</p>
-            <h1 class="text-2xl md:text-4xl font-light serif leading-tight">Portal do Conselho Familiar</h1>
-        </div>
-    </section>
-
-    <!-- CONTEÚDO DAS TELAS -->
-    <main class="max-w-5xl mx-auto px-6 py-12 w-full flex-grow">
-
-        <!-- TELA 1: NOSSA HISTÓRIA -->
-        <section id="historia" class="page-section active">
-            <div class="mb-8 border-b-2 border-[#cc1e2b] pb-4">
-                <h2 class="text-2xl font-bold text-[#1d2b56] uppercase tracking-wide">Nossa História & Princípios</h2>
-                <p class="text-xs text-stone-500">A trajetória e a fundação do nosso conselho</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8 items-center mb-8">
-                <div class="space-y-4 text-stone-700 text-sm leading-relaxed">
-                    <p>
-                        A história da nossa governança nasceu da necessidade de perpetuar os valores éticos, a cultura de trabalho e o patrimônio construído ao longo de gerações.
-                    </p>
-                    <p>
-                        Seguindo a visão dos nossos fundadores, o Conselho de Família foi formalizado para garantir transparência, equidade e a correta preparação das futuras gerações.
-                    </p>
-                </div>
-                <div>
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="História da Governança" class="rounded-lg shadow-md border-l-4 border-[#cc1e2b] w-full h-64 object-cover">
-                </div>
-            </div>
-        </section>
-
-        <!-- TELA 2: ESTRUTURA DA GOVERNANÇA -->
-        <section id="estrutura" class="page-section">
-            <div class="mb-8 border-b-2 border-[#cc1e2b] pb-4">
-                <h2 class="text-2xl font-bold text-[#1d2b56] uppercase tracking-wide">Estrutura Orgânica</h2>
-                <p class="text-xs text-stone-500">Órgãos de decisão e diretrizes da família</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6 mb-8">
-                <div class="p-6 bg-white rounded-lg shadow-sm border-t-4 border-[#cc1e2b]">
-                    <h3 class="font-bold text-[#1d2b56] text-base mb-2">Conselho de Família</h3>
-                    <p class="text-xs text-stone-600 leading-relaxed">Alinhamento de expectativas, código de conduta e manutenção do Protocolo Familiar.</p>
-                </div>
-                <div class="p-6 bg-white rounded-lg shadow-sm border-t-4 border-[#1d2b56]">
-                    <h3 class="font-bold text-[#1d2b56] text-base mb-2">Conselho Consultivo</h3>
-                    <p class="text-xs text-stone-600 leading-relaxed">Acompanhamento estratégico dos negócios patrimoniais e diretrizes de investimentos.</p>
-                </div>
-                <div class="p-6 bg-white rounded-lg shadow-sm border-t-4 border-[#cc1e2b]">
-                    <h3 class="font-bold text-[#1d2b56] text-base mb-2">Comitê de Sucessão</h3>
-                    <p class="text-xs text-stone-600 leading-relaxed">Capacitação, formação de herdeiros e preparação da transição geracional.</p>
-                </div>
-            </div>
-
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80" alt="Reunião de Governança" class="rounded-lg shadow-md w-full h-64 object-cover">
-        </section>
-
-        <!-- TELA 3: GALERIA DE FOTOS -->
-        <section id="galeria" class="page-section">
-            <div class="mb-8 border-b-2 border-[#cc1e2b] pb-4">
-                <h2 class="text-2xl font-bold text-[#1d2b56] uppercase tracking-wide">Galeria de Fotos</h2>
-                <p class="text-xs text-stone-500">Registros de reuniões, assembleias e encontros da família</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white rounded overflow-hidden shadow border border-stone-200">
-                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=80" alt="Assembleia 2026" class="h-48 w-full object-cover">
-                    <div class="p-4">
-                        <h4 class="font-bold text-sm text-[#1d2b56]">Assembleia Geral 2026</h4>
-                        <p class="text-xs text-stone-500 mt-1">Apresentação de resultados e diretrizes do ano.</p>
+    <!-- CONTEÚDO DO SITE (Oculto até digitar a senha) -->
+    <div id="site-content" class="hidden min-h-screen flex flex-col justify-between">
+        
+        <!-- CABEÇALHO / NAVEGAÇÃO -->
+        <header class="bg-[#1d2b56] text-white border-b-4 border-[#cc1e2b] sticky top-0 z-40 shadow-md">
+            <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('historia')">
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center p-1 shadow-sm border border-stone-200 overflow-hidden">
+                        <img src="logo.png" alt="Símbolo Governança" class="w-full h-full object-contain" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><path d=\'M50 10 L90 80 L10 80 Z\' fill=\'%23cc1e2b\'/><circle cx=\'50\' cy=\'55\' r=\'18\' fill=\'%231d2b56\'/></svg>'">
+                    </div>
+                    <div>
+                        <span class="text-lg font-bold tracking-wider uppercase block leading-none text-white">Governança Familiar</span>
+                        <span class="text-[10px] tracking-widest text-stone-300 uppercase">Conselho & Legado</span>
                     </div>
                 </div>
 
-                <div class="bg-white rounded overflow-hidden shadow border border-stone-200">
-                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="Workshop Herdeiros" class="h-48 w-full object-cover">
-                    <div class="p-4">
-                        <h4 class="font-bold text-sm text-[#1d2b56]">Encontro da Nova Geração</h4>
-                        <p class="text-xs text-stone-500 mt-1">Capacitação e integração dos sucessores.</p>
-                    </div>
-                </div>
+                <nav class="text-sm font-medium tracking-wide flex space-x-6">
+                    <button onclick="showPage('historia')" id="nav-historia" class="text-white hover:text-[#cc1e2b] transition py-1 border-b-2 border-transparent">Nossa História</button>
+                    <button onclick="showPage('estrutura')" id="nav-estrutura" class="text-stone-300 hover:text-[#cc1e2b] transition py-1 border-b-2 border-transparent">Estrutura</button>
+                    <button onclick="showPage('galeria')" id="nav-galeria" class="text-stone-300 hover:text-[#cc1e2b] transition py-1 border-b-2 border-transparent">Galeria de Fotos</button>
+                    <button onclick="showPage('atas')" id="nav-atas" class="text-stone-300 hover:text-[#cc1e2b] transition py-1 border-b-2 border-transparent">Atas & Documentos</button>
+                </nav>
 
-                <div class="bg-white rounded overflow-hidden shadow border border-stone-200">
-                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80" alt="Reunião do Conselho" class="h-48 w-full object-cover">
-                    <div class="p-4">
-                        <h4 class="font-bold text-sm text-[#1d2b56]">Reunião do Conselho</h4>
-                        <p class="text-xs text-stone-500 mt-1">Alinhamento estratégico do trimestre.</p>
-                    </div>
-                </div>
+                <button onclick="sair()" class="text-xs bg-[#131d3b] text-stone-200 hover:bg-[#cc1e2b] border border-stone-600 px-3 py-1 rounded transition">
+                    Sair
+                </button>
+            </div>
+        </header>
+
+        <!-- BANNER TOPO -->
+        <section class="bg-[#1d2b56] text-white py-12 px-6 border-b border-stone-700">
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="text-xs uppercase tracking-widest text-[#cc1e2b] mb-2 font-bold">Perenidade & Transparência</p>
+                <h1 class="text-2xl md:text-4xl font-light serif leading-tight">Portal do Conselho Familiar</h1>
             </div>
         </section>
 
-        <!-- TELA 4: ATAS & DOCUMENTOS -->
-        <section id="atas" class="page-section">
-            <div class="mb-8 border-b-2 border-[#cc1e2b] pb-4">
-                <h2 class="text-2xl font-bold text-[#1d2b56] uppercase tracking-wide">Atas & Documentos Oficiais</h2>
-                <p class="text-xs text-stone-500">Download de atas, regimentos e arquivos confidenciais</p>
-            </div>
+        <!-- PÁGINAS -->
+        <main class="max-w-5xl mx-auto px-6 py-12 w-full flex-grow">
 
-            <div class="bg-white rounded border border-stone-300 shadow-sm overflow-hidden">
-                <div class="divide-y divide-stone-200">
-                    <div class="p-4 flex items-center justify-between hover:bg-stone-50">
-                        <div class="flex items-center space-x-4">
-                            <div class="bg-[#cc1e2b] text-white text-xs font-bold px-2.5 py-1 rounded">PDF</div>
-                            <div>
-                                <h4 class="font-bold text-sm text-[#1d2b56]">Ata da Reunião do Conselho - Q2 2026</h4>
-                                <p class="text-xs text-stone-500">Data: 15/06/2026 • 1.2 MB</p>
-                            </div>
+            <!-- TELA 1: HISTÓRIA -->
+            <section id="historia" class="page-section active">
+                <div class="mb-8 border-b-2 border-[#cc1e2b] pb-4">
+                    <h2 class="text-2xl font-bold text-[#1d2b56] uppercase tracking-wide">Nossa História & Princípios</h2>
+                    <p class="text-xs text-stone-500">A trajetória e a fundação do nosso conselho</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 items-center mb-8">
+                    <div class="space-y-4 text-stone-700 text-sm leading-relaxed">
+                        <p>A história da nossa governança nasceu da necessidade de perpetuar os valores éticos, a cultura de trabalho e o patrimônio construído ao longo de gerações.</p>
+                        <p>Seguindo a visão dos nossos fundadores, o Conselho de Família foi formalizado para garantir transparência, equidade e a correta preparação das futuras gerações.</p>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="História" class="rounded-lg shadow-md border-l-4 border-[#cc1e2b] w-full h-64 object-cover">
+                    </div>
+                </div>
+            </section>
+
+            <!-- TELA 2: ESTRUTURA -->
+            <section id="estrutura" class="page-section">
+                <div class="mb-8 border-b-2 border-[#cc1e2b] pb-4">
+                    <h2 class="text-2xl font-bold text-[#1d2b56] uppercase tracking-wide">Estrutura Orgânica</h2>
+                    <p class="text-xs text-stone-500">Órgãos de decisão e diretrizes da família</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="p-6 bg-white rounded-lg shadow-sm border-t-4 border-[#cc1e2b]">
+                        <h3 class="font-bold text-[#1d2b56] text-base mb-2">Conselho de Família</h3>
+                        <p class="text-xs text-stone-600 leading-relaxed">Alinhamento de expectativas, código de conduta e manutenção do Protocolo Familiar.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-sm border-t-4 border-[#1d2b56]">
+                        <h3 class="font-bold text-[#1d2b56] text-base mb-2">Conselho Consultivo</h3>
+                        <p class="text-xs text-stone-600 leading-relaxed">Acompanhamento estratégico dos negócios patrimoniais e diretrizes de investimentos.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-sm border-t-4 border-[#cc1e2b]">
+                        <h3 class="font-bold text-[#1d2b56] text-base mb-2">Comitê de Sucessão</h3>
+                        <p class="text-xs text-stone-600 leading-relaxed">Capacitação, formação de herdeiros e preparação da transição geracional.</p>
+                    </div>
+                </div>
+
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80" alt="Estrutura" class="rounded-lg shadow-md w-full h-64 object-cover">
+            </section>
+
+            <!-- TELA 3: GALERIA -->
+            <section id="galeria" class="page-section">
+                <div class="mb-8 border-b-2 border-[#cc1e2b] pb-4">
+                    <h2 class="text-2xl font-bold text-[#1d2b56] uppercase tracking-wide">Galeria de Fotos</h2>
+                    <p class="text-xs text-stone-500">Registros de reuniões, assembleias e encontros da família</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded overflow-hidden shadow border border-stone-200">
+                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=80" alt="Foto" class="h-48 w-full object-cover">
+                        <div class="p-4">
+                            <h4 class="font-bold text-sm text-[#1d2b56]">Assembleia Geral 2026</h4>
+                            <p class="text-xs text-stone-500 mt-1">Apresentação de resultados e diretrizes do ano.</p>
                         </div>
-                        <a href="#" class="text-xs bg-[#1d2b56] hover:bg-[#cc1e2b] text-white px-3 py-1.5 rounded transition">Download</a>
                     </div>
-
-                    <div class="p-4 flex items-center justify-between hover:bg-stone-50">
-                        <div class="flex items-center space-x-4">
-                            <div class="bg-[#cc1e2b] text-white text-xs font-bold px-2.5 py-1 rounded">PDF</div>
-                            <div>
-                                <h4 class="font-bold text-sm text-[#1d2b56]">Protocolo Familiar Atualizado</h4>
-                                <p class="text-xs text-stone-500">Data: 10/01/2026 • 3.5 MB</p>
-                            </div>
+                    <div class="bg-white rounded overflow-hidden shadow border border-stone-200">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="Foto" class="h-48 w-full object-cover">
+                        <div class="p-4">
+                            <h4 class="font-bold text-sm text-[#1d2b56]">Encontro da Nova Geração</h4>
+                            <p class="text-xs text-stone-500 mt-1">Capacitação e integração dos sucessores.</p>
                         </div>
-                        <a href="#" class="text-xs bg-[#1d2b56] hover:bg-[#cc1e2b] text-white px-3 py-1.5 rounded transition">Download</a>
+                    </div>
+                    <div class="bg-white rounded overflow-hidden shadow border border-stone-200">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80" alt="Foto" class="h-48 w-full object-cover">
+                        <div class="p-4">
+                            <h4 class="font-bold text-sm text-[#1d2b56]">Reunião do Conselho</h4>
+                            <p class="text-xs text-stone-500 mt-1">Alinhamento estratégico do trimestre.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-    </main>
+            <!-- TELA 4: ATAS -->
+            <section id="atas" class="page-section">
+                <div class="mb-8 border-b-2 border-[#cc1e2b] pb-4">
+                    <h2 class="text-2xl font-bold text-[#1d2b56] uppercase tracking-wide">Atas & Documentos Oficiais</h2>
+                    <p class="text-xs text-stone-500">Download de atas, regimentos e arquivos confidenciais</p>
+                </div>
 
-    <!-- RODAPÉ -->
-    <footer class="bg-[#1d2b56] text-stone-300 py-6 px-6 text-center text-xs border-t-4 border-[#cc1e2b]">
-        <p class="mb-1">Governança Familiar. Todos os direitos reservados.</p>
-        <p class="text-stone-400">Conteúdo estritamente confidencial.</p>
-    </footer>
+                <div class="bg-white rounded border border-stone-300 shadow-sm overflow-hidden">
+                    <div class="divide-y divide-stone-200">
+                        <div class="p-4 flex items-center justify-between hover:bg-stone-50">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-[#cc1e2b] text-white text-xs font-bold px-2.5 py-1 rounded">PDF</div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-[#1d2b56]">Ata da Reunião do Conselho - Q2 2026</h4>
+                                    <p class="text-xs text-stone-500">Data: 15/06/2026 • 1.2 MB</p>
+                                </div>
+                            </div>
+                            <button onclick="alert('Download em ambiente estático')" class="text-xs bg-[#1d2b56] hover:bg-[#cc1e2b] text-white px-3 py-1.5 rounded transition">Download</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <!-- SCRIPT DE TROCA DE PÁGINAS -->
+        </main>
+
+        <!-- RODAPÉ -->
+        <footer class="bg-[#1d2b56] text-stone-300 py-6 px-6 text-center text-xs border-t-4 border-[#cc1e2b]">
+            <p class="mb-1">Governança Familiar. Todos os direitos reservados.</p>
+            <p class="text-stone-400">Conteúdo estritamente confidencial.</p>
+        </footer>
+    </div>
+
+    <!-- SCRIPTS -->
     <script>
+        // Defina a senha de teste aqui
+        const SENHA_CORRETA = "1234";
+
+        function validarAcesso(event) {
+            event.preventDefault(); // Impede o erro 405 do formulário
+            
+            const senhaDigitada = document.getElementById('senha-input').value;
+            const erroMsg = document.getElementById('erro-msg');
+
+            if (senhaDigitada === SENHA_CORRETA) {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('site-content').classList.remove('hidden');
+                showPage('historia');
+            } else {
+                erroMsg.classList.remove('hidden');
+            }
+        }
+
+        function sair() {
+            document.getElementById('site-content').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('senha-input').value = '';
+            document.getElementById('erro-msg').classList.add('hidden');
+        }
+
         function showPage(pageId) {
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.remove('active');
-            });
+            document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
 
             document.querySelectorAll('nav button').forEach(btn => {
@@ -197,8 +231,6 @@
                 activeBtn.classList.add('text-white', 'border-[#cc1e2b]');
             }
         }
-        showPage('historia');
     </script>
-
 </body>
 </html>
